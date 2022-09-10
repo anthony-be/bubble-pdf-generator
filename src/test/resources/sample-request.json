@@ -1,0 +1,38 @@
+{
+  "questions":[
+    {
+      "title":"Question 1 - What is your ... ?",
+      "elements":[
+        {
+          "type":"text",
+          "value":"First text sample"
+        },
+        {
+          "type":"image",
+          "value":"<Image's Base64 representation>"
+        },
+        {
+          "type":"text",
+          "value":"Second text sample coming after the image"
+        }
+      ]
+    },
+    {
+      "title":"Question 2 - What is your ... ?",
+      "elements":[
+        {
+          "type":"text",
+          "value":"2 - First text sample"
+        },
+        {
+          "type":"image",
+          "value":"2 - <Image's Base64 representation>"
+        },
+        {
+          "type":"text",
+          "value":"2 - Second text sample coming after the image"
+        }
+      ]
+    }
+  ]
+}
