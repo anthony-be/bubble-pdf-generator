@@ -13,7 +13,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModel;
+import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithProfileImage;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OpenPdfGeneratorTest {
@@ -24,7 +24,7 @@ class OpenPdfGeneratorTest {
         OutputStream out = new FileOutputStream(f);
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
-        PdfRequestWrapper request = sampleModel();
+        PdfRequestWrapper request = sampleModelWithProfileImage();
         Element q2e2 = request.getQuestions().get(1).getElements().get(1);
         assertTrue(q2e2 instanceof ImageElement);
         ImageElement imagelement = (ImageElement) q2e2;

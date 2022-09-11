@@ -3,6 +3,7 @@ package be.cocoding.bubblepdf.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,30 @@ public class PdfRequestWrapper {
     }
 
     public static PdfRequestWrapper sampleModel(){
+        // Question 1
+        Question.QuestionBuilder q1 = Question.builder();
+        q1.title("Question 1 - What is your ... ?");
+
+        Element q1e1 = new TextElement("First text sample");
+        Element q1e2 = new ImageElement("<Image's Base64 representation>");
+        Element q1e3 = new TextElement("Second text sample coming after the image");
+        q1.elements(Arrays.asList(q1e1, q1e2, q1e3));
+
+        // Question 2
+        Question.QuestionBuilder q2 = Question.builder();
+        q2.title("Question 2 - What is your ... ?");
+
+        Element q2e1 = new TextElement("2 - First text sample");
+        Element q2e2 = new ImageElement("2 - <Image's Base64 representation>");
+        Element q2e3 = new TextElement("2 - Second text sample coming after the image");
+        q2.elements(Arrays.asList(q2e1, q2e2, q2e3));
+
+        return PdfRequestWrapper.builder()
+                .questions(Arrays.asList(q1.build(), q2.build()))
+                .build();
+    }
+
+    public static PdfRequestWrapper sampleModelWithProfileImage(){
         // Question 1
         Question.QuestionBuilder q1 = Question.builder();
         q1.title("Question 1 - What is your ... ?");
