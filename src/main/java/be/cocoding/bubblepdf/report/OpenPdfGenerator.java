@@ -4,13 +4,14 @@ import be.cocoding.bubblepdf.model.ImageElement;
 import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.model.Question;
 import be.cocoding.bubblepdf.model.TextElement;
-import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.GrayColor;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -47,9 +48,11 @@ public class OpenPdfGenerator implements PdfGenerator {
             writer.setPageEvent(new WatermarkPageEvent());
             doc.open();
 
-            int counter = 1;
-            for(Question q : request.getQuestions()){
-                printQuestionElement( doc, q, counter++ );
+            if (CollectionUtils.isNotEmpty(request.getQuestions())) {
+                int counter = 1;
+                for (Question q : request.getQuestions()) {
+                    printQuestionElement(doc, q, counter++);
+                }
             }
 
         } catch (Exception e) {
@@ -58,7 +61,7 @@ public class OpenPdfGenerator implements PdfGenerator {
         doc.close();
     }
 
-    private void handleException(Exception e){
+    private void handleException(Exception e) {
         throw new RuntimeException("Failed to create Document report", e);
     }
 
@@ -74,11 +77,11 @@ public class OpenPdfGenerator implements PdfGenerator {
         doc.add(chapter);
 
         // Elements
-        for(be.cocoding.bubblepdf.model.Element element : q.getElements()){
-            if(element instanceof TextElement){
+        for (be.cocoding.bubblepdf.model.Element element : q.getElements()) {
+            if (element instanceof TextElement) {
                 printTextElement(doc, (TextElement) element);
-            }else if(element instanceof ImageElement){
-                printImageElement(doc, (ImageElement)element);
+            } else if (element instanceof ImageElement) {
+                printImageElement(doc, (ImageElement) element);
             }
         }
 
@@ -101,7 +104,7 @@ public class OpenPdfGenerator implements PdfGenerator {
 
     }
 
-    private void fitImageIfNecessary(Image image){
+    private void fitImageIfNecessary(Image image) {
         float maxWidth = 540;
         float maxHeigth = 802;
 
@@ -112,7 +115,7 @@ public class OpenPdfGenerator implements PdfGenerator {
         float correctionHeight = maxHeigth / currentHeight;
 
         float correctionPercent = Math.min(correctionWidth, correctionHeight) * 100;
-        if(correctionPercent < 100){
+        if (correctionPercent < 100) {
             image.scalePercent(correctionPercent);
         }
     }
