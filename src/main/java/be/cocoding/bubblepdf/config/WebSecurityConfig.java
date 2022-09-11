@@ -25,24 +25,25 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+                .authorizeRequests().anyRequest().permitAll()
+//                .authenticated()
+//                .and()
+//                .httpBasic().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                 .and()
                 .build();
     }
 
-    @Bean
-    public UserDetailsService users() {
-        // The builder will ensure the passwords are encoded before saving in memory
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        UserDetails user = users
-                .username(authenticationUser)
-                .password(authenticationPassword)
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public UserDetailsService users() {
+//        // The builder will ensure the passwords are encoded before saving in memory
+//        User.UserBuilder users = User.withDefaultPasswordEncoder();
+//        UserDetails user = users
+//                .username(authenticationUser)
+//                .password(authenticationPassword)
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
 
 
 }
