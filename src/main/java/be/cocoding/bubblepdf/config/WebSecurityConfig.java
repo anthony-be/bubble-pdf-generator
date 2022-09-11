@@ -19,6 +19,7 @@ public class WebSecurityConfig {
     @Value("${AUTHENTICATION_USER}")
     private String authenticationUser;
 
+
     @Value("${AUTHENTICATION_PASSWORD}")
     private String authenticationPassword;
 
