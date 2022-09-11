@@ -27,9 +27,9 @@ public class PdfController {
         try {
             pdfRequestWrapper = RequestJsonParser.parseJson(json);
         } catch (Exception e) {
-            logger.error("Failed to parse JSON body", e);
+            logger.warn("Failed to parse JSON body", e);
         }
-        if(pdfRequestWrapper == null){
+        if(pdfRequestWrapper == null || !pdfRequestWrapper.hasData()){
             return ResponseEntity.badRequest().build();
         }
 

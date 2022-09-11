@@ -13,6 +13,15 @@ public class PdfRequestWrapper {
 
     private List<Question> questions;
 
+    public boolean hasData(){
+        if(CollectionUtils.isEmpty(questions)){
+            return false;
+        }
+
+        return questions.stream().map(Question::hasData)
+                .reduce(false, Boolean::logicalOr);
+    }
+
     public static PdfRequestWrapper sampleModel(){
         // Question 1
         Question.QuestionBuilder q1 = Question.builder();
