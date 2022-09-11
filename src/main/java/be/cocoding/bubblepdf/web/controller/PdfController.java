@@ -6,10 +6,7 @@ import be.cocoding.bubblepdf.report.OpenPdfGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,4 +48,9 @@ public class PdfController {
         headers.setCacheControl(CacheControl.noStore().mustRevalidate().cachePrivate());
         return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
     }
+    @GetMapping
+    public ResponseEntity<String> helloWorld(){
+        return ResponseEntity.ok("Hello PDF World !");
+    }
+
 }

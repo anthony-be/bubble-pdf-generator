@@ -35,7 +35,7 @@ class PdfControllerTest {
 
     @Test
     void createPdf_WithWrongHttpMethod() {
-        client.get()
+        client.put()
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.METHOD_NOT_ALLOWED)
                 .expectBody().isEmpty();
