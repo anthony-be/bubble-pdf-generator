@@ -42,13 +42,14 @@ public class PdfController {
             return ResponseEntity.internalServerError().build();
         }
 
+
         // Return content as byte[]
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setCacheControl(CacheControl.noStore().mustRevalidate().cachePrivate());
         return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
     }
-    @GetMapping
+    @GetMapping(produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> helloWorld(){
         return ResponseEntity.ok("Hello PDF World !");
     }

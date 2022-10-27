@@ -1,5 +1,6 @@
 package be.cocoding.bubblepdf.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class TextElement implements Element {
     }
 
     @Override
+    @JsonIgnore
     public String getValue() {
         return textValue;
     }
