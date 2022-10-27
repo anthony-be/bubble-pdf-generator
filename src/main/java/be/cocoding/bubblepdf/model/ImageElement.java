@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.commons.codec.binary.Base64;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +21,10 @@ public class ImageElement implements Element {
     @Override
     public String getType() {
         return TYPE;
+    }
+
+    public boolean isBase64Value(){
+        return Base64.isBase64(base64ImageContent);
     }
 
     @Override

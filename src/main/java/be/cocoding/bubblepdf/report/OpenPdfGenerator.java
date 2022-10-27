@@ -89,9 +89,17 @@ public class OpenPdfGenerator implements PdfGenerator {
     }
 
     private void printImageElement(Document doc, ImageElement imageElement) throws DocumentException, IOException {
-        String base64EncodedValue = imageElement.getValue();
-        byte[] bytes = Base64.getDecoder().decode(base64EncodedValue);
-        Image image = Image.getInstance(bytes);
+        String value = imageElement.getValue();
+
+        // 2022-10-27: Value can be either base64 or URL
+        Image image;
+        if(imageElement.isBase64Value()){
+            byte[] bytes = Base64.getDecoder().decode(value);
+            image = Image.getInstance(bytes);
+        } else {
+            image = Image.getInstance(value); // value = URL of the image
+        }
+
         image.setAlignment(Image.MIDDLE);
         fitImageIfNecessary(image);
         doc.add(image);

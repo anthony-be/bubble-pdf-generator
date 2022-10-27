@@ -11,8 +11,10 @@ import org.springframework.core.io.Resource;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Base64;
 
+import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithOnlineProfileImage;
 import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithProfileImage;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +23,7 @@ class OpenPdfGeneratorTest {
     @Test
     void generatePdf() throws IOException {
         File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF.pdf");
-        OutputStream out = new FileOutputStream(f);
+        OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
         PdfRequestWrapper request = sampleModelWithProfileImage();
@@ -37,10 +39,22 @@ class OpenPdfGeneratorTest {
     @Test
     void generatePdf2() throws IOException {
         File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF-2.pdf");
-        OutputStream out = new FileOutputStream(f);
+        OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
         PdfRequestWrapper request = sampleModel2();
+        generator.generatePdf(request, out);
+
+        out.flush();out.close();
+    }
+
+    @Test
+    void generatePdfWithImageUrl() throws IOException {
+        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF-URL-Image.pdf");
+        OutputStream out = Files.newOutputStream(f.toPath());
+
+        OpenPdfGenerator generator = new OpenPdfGenerator();
+        PdfRequestWrapper request = sampleModelWithOnlineProfileImage();
         generator.generatePdf(request, out);
 
         out.flush();out.close();
