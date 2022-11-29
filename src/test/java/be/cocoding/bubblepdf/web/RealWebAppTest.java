@@ -1,6 +1,7 @@
 package be.cocoding.bubblepdf.web;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -16,9 +17,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 
 import static lombok.Lombok.sneakyThrow;
 
+@Ignore
 public class RealWebAppTest {
 
     private WebTestClient client;
@@ -28,6 +31,7 @@ public class RealWebAppTest {
         final int memSize = 20 * 1024 * 1024;
 
         client = WebTestClient.bindToServer().baseUrl("https://bubble-pdf-generator.herokuapp.com/api/pdf")
+                .responseTimeout(Duration.ofMinutes(3L))
                 .exchangeStrategies(ExchangeStrategies.builder()
                         .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(memSize))
                         .build())
