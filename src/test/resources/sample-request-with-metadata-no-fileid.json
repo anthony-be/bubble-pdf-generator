@@ -1,0 +1,43 @@
+{
+  "questions":[
+    {
+      "title":"Question 1 - What is your ... ?",
+      "elements":[
+        {
+          "type":"text",
+          "value":"First text sample"
+        },
+        {
+          "type":"image",
+          "value":"https://s3.amazonaws.com/appforest_uf/f1666453946962x421976841385394600/read-369040_1920.jpg"
+        },
+        {
+          "type":"text",
+          "value":"Second text sample coming after the image"
+        }
+      ]
+    },
+    {
+      "title":"Question 2 - What is your ... ?",
+      "elements":[
+        {
+          "type":"text",
+          "value":"2 - First text sample"
+        },
+        {
+          "type":"image",
+          "value":"https://s3.amazonaws.com/appforest_uf/f1666453946962x421976841385394600/read-369040_1920.jpg"
+        },
+        {
+          "type":"text",
+          "value":"2 - Second text sample coming after the image"
+        }
+      ]
+    }
+  ],
+
+  "metadata" : {
+      "bucketId" : "bubble-kindred-tales-test",
+      "labels" : [ "bubble.io", "kindred-tales", "test", "pdf" ]
+  }
+}

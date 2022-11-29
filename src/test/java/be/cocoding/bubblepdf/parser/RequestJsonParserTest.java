@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModel;
+import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RequestJsonParserTest {
@@ -30,17 +30,17 @@ class RequestJsonParserTest {
     }
 
     @Test
-    public void parseJson() throws IOException {
-        String json = sampleJson();
+    public void parseJsonWithMetadata() throws IOException {
+        String json = sampleJsonWithMetadata();
         PdfRequestWrapper actual = RequestJsonParser.parseJson(json);
 
         assertNotNull(actual);
-        assertEquals(sampleModel(), actual);
+        assertEquals(sampleModelWithMetadata(), actual);
 
     }
 
-    private String sampleJson() throws IOException {
-        Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request.json");
+    private String sampleJsonWithMetadata() throws IOException {
+        Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request-with-bucket.json");
         return IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
     }
 

@@ -14,6 +14,8 @@ public class PdfRequestWrapper {
 
     private List<Question> questions;
 
+    private Metadata metadata;
+
     public boolean hasData(){
         if(CollectionUtils.isEmpty(questions)){
             return false;
@@ -23,13 +25,37 @@ public class PdfRequestWrapper {
                 .reduce(false, Boolean::logicalOr);
     }
 
-    public static PdfRequestWrapper sampleModel(){
+//    public static PdfRequestWrapper sampleModel(){
+//        // Question 1
+//        Question.QuestionBuilder q1 = Question.builder();
+//        q1.title("Question 1 - What is your ... ?");
+//
+//        Element q1e1 = new TextElement("First text sample");
+//        Element q1e2 = new ImageElement("<Image's Base64 representation>");
+//        Element q1e3 = new TextElement("Second text sample coming after the image");
+//        q1.elements(Arrays.asList(q1e1, q1e2, q1e3));
+//
+//        // Question 2
+//        Question.QuestionBuilder q2 = Question.builder();
+//        q2.title("Question 2 - What is your ... ?");
+//
+//        Element q2e1 = new TextElement("2 - First text sample");
+//        Element q2e2 = new ImageElement("2 - <Image's Base64 representation>");
+//        Element q2e3 = new TextElement("2 - Second text sample coming after the image");
+//        q2.elements(Arrays.asList(q2e1, q2e2, q2e3));
+//
+//        return PdfRequestWrapper.builder()
+//                .questions(Arrays.asList(q1.build(), q2.build()))
+//                .build();
+//    }
+
+    public static PdfRequestWrapper sampleModelWithMetadata(){
         // Question 1
         Question.QuestionBuilder q1 = Question.builder();
         q1.title("Question 1 - What is your ... ?");
 
         Element q1e1 = new TextElement("First text sample");
-        Element q1e2 = new ImageElement("<Image's Base64 representation>");
+        Element q1e2 = new ImageElement("https://s3.amazonaws.com/appforest_uf/f1666453946962x421976841385394600/read-369040_1920.jpg");
         Element q1e3 = new TextElement("Second text sample coming after the image");
         q1.elements(Arrays.asList(q1e1, q1e2, q1e3));
 
@@ -38,12 +64,19 @@ public class PdfRequestWrapper {
         q2.title("Question 2 - What is your ... ?");
 
         Element q2e1 = new TextElement("2 - First text sample");
-        Element q2e2 = new ImageElement("2 - <Image's Base64 representation>");
+        Element q2e2 = new ImageElement("https://s3.amazonaws.com/appforest_uf/f1666453946962x421976841385394600/read-369040_1920.jpg");
         Element q2e3 = new TextElement("2 - Second text sample coming after the image");
         q2.elements(Arrays.asList(q2e1, q2e2, q2e3));
 
+        // Metadata
+        Metadata.MetadataBuilder metadata = Metadata.builder()
+                .bucketId("bubble-kindred-tales-test")
+                .pdfFileId("gdcerfthb34dr78")
+                .labels(Arrays.asList("bubble.io", "kindred-tales", "test", "pdf"));
+
         return PdfRequestWrapper.builder()
                 .questions(Arrays.asList(q1.build(), q2.build()))
+                .metadata(metadata.build())
                 .build();
     }
 
