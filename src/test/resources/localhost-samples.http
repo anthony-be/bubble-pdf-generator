@@ -1,3 +1,4 @@
+#### Generate PDF Without Google Cloud storage
 POST http://localhost:8080/api/pdf
 Content-Type: application/json
 
@@ -38,6 +39,54 @@ Content-Type: application/json
       ]
     }
   ]
+}
+
+### Generate PDF and store it on Google Cloud Storage
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+{
+  "questions" : [
+    {
+      "title": "How is life different today compared to when you were a child?",
+      "elements": [
+        {
+          "type": "text",
+          "value": "How is life different today compared to when you were a child?"
+        },
+        {
+          "type": "image",
+          "value": "https://s3.amazonaws.com/appforest_uf/f1666453946962x421976841385394600/read-369040_1920.jpg"
+        },
+        {
+          "type": "text",
+          "value": "Section 3  (image is 363kb)"
+        }
+      ]
+    },
+    {
+      "title": "What is your happiest childhood memory?",
+      "elements": [
+        {
+          "type": "text",
+          "value": "What is your happiest childhood memory?"
+        },
+        {
+          "type": "text",
+          "value": "section 2 (image is 166kb)"
+        },
+        {
+          "type": "image",
+          "value": "https://s3.amazonaws.com/appforest_uf/f1666453985248x435032636778127000/people-2572105_1920.jpg"
+        }
+      ]
+    }
+  ],
+  "metadata" : {
+    "bucketId" : "test-pdf-32",
+    "pdfFileId" : "test-local-anthony.pdf",
+    "labels" : [ "bubble.io", "kindred-tales", "test", "pdf" ]
+  }
 }
 
 ###
