@@ -53,6 +53,7 @@ public class PdfController implements InitializingBean {
         try {
             OpenPdfGenerator pdfGenerator = new OpenPdfGenerator();
             ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
+
             pdfGenerator.generatePdf(pdfRequestWrapper, pdfOut);
             pdfOut.close();
             pdfContent = pdfOut.toByteArray();

@@ -3,7 +3,7 @@ package be.cocoding.bubblepdf.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
-import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;

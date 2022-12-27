@@ -11,11 +11,12 @@ import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.GrayColor;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
-import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.Base64;
 
@@ -40,25 +41,24 @@ public class OpenPdfGenerator implements PdfGenerator {
 
     @Override
     public void generatePdf(PdfRequestWrapper request, OutputStream out) {
-
         Document doc = new Document();
         try {
-            PdfWriter writer = PdfWriter.getInstance(doc, out);
-            writer.setStrictImageSequence(true); // ??
-            writer.setPageEvent(new WatermarkPageEvent());
+            PdfWriter pdfWriter = PdfWriter.getInstance(doc, out);
+            pdfWriter.setStrictImageSequence(true); // ??
+            pdfWriter.setPageEvent(new WatermarkPageEvent());
             doc.open();
 
-            if (CollectionUtils.isNotEmpty(request.getQuestions())) {
+            if (!CollectionUtils.isEmpty(request.getQuestions())) {
                 int counter = 1;
                 for (Question q : request.getQuestions()) {
                     printQuestionElement(doc, q, counter++);
                 }
             }
-
         } catch (Exception e) {
             handleException(e);
+        } finally {
+            doc.close();
         }
-        doc.close();
     }
 
     private void handleException(Exception e) {
