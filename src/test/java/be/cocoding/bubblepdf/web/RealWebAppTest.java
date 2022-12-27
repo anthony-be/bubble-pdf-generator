@@ -21,7 +21,7 @@ import java.time.Duration;
 
 import static lombok.Lombok.sneakyThrow;
 
-@Ignore
+//@Ignore
 public class RealWebAppTest {
 
     private WebTestClient client;
@@ -52,8 +52,28 @@ public class RealWebAppTest {
         ;
     }
 
+    @Test
+    void createPdfWithBucket() throws IOException {
+        String validJson = sampleJsonWithBucket();
+        client.post()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(validJson)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NO_CONTENT)
+//                .expectHeader().contentType(MediaType.APPLICATION_PDF)
+//                .expectHeader().cacheControl(CacheControl.noStore().mustRevalidate().cachePrivate())
+//                .expectBody().consumeWith(this::storeInFile)
+        ;
+    }
+
+
     private String sampleJson() throws IOException {
         Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request-with-images.json");
+        return IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+    }
+
+    private String sampleJsonWithBucket() throws IOException {
+        Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request-with-bucket-real.json");
         return IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
     }
 

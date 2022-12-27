@@ -1,4 +1,4 @@
-#### Generate PDF Without Google Cloud storage
+#### Generate PDF With Google Cloud storage
 POST http://localhost:8080/api/pdf
 Content-Type: application/json
 
@@ -90,3 +90,18 @@ Content-Type: application/json
 }
 
 ###
+#"metadata": {
+#"bucketId": "kindred-pdf-files",
+#"pdfFileId": "1671397842129x624382778626539500_interior7Ctv5.pdf"
+#}
+#### Generate PDF from Nick example with image and without Cloud storage
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+< samples_json/Nick-12_20_2022.json
+
+#### Generate PDF from Nick example with image and without Cloud storage
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+< samples_json/Nick-12_20_2022-no_images.json
