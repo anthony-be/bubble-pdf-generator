@@ -3,6 +3,7 @@ package be.cocoding.bubblepdf.web;
 import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -21,7 +22,7 @@ import java.time.Duration;
 
 import static lombok.Lombok.sneakyThrow;
 
-//@Ignore
+@Disabled
 public class RealWebAppTest {
 
     private WebTestClient client;

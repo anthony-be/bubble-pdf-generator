@@ -5,24 +5,28 @@ import be.cocoding.bubblepdf.model.ImageElement;
 import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.parser.RequestJsonParser;
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Base64;
 
 import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithOnlineProfileImage;
 import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithProfileImage;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled
 class OpenPdfGeneratorTest {
 
     @Test
     void generatePdf() throws IOException {
-        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF.pdf");
+        File f = new File("/home/anthony/projects/GitHubxxx/sample-pdf-bubble-OpenPDF.pdf");
         OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
