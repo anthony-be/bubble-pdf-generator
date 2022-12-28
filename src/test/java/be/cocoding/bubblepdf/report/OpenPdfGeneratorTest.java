@@ -5,6 +5,7 @@ import be.cocoding.bubblepdf.model.ImageElement;
 import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.parser.RequestJsonParser;
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -18,6 +19,7 @@ import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithOnlin
 import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithProfileImage;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore
 class OpenPdfGeneratorTest {
 
     @Test
