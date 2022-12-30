@@ -1,7 +1,6 @@
 package be.cocoding.bubblepdf.web;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -22,16 +21,20 @@ import java.time.Duration;
 
 import static lombok.Lombok.sneakyThrow;
 
-@Disabled
+@Disabled("For manual testing only")
 public class RealWebAppTest {
 
-    private WebTestClient client;
+    private static final String URL_HEROKU = "https://bubble-pdf-generator.herokuapp.com/api/pdf";
+    private static final String URL_GCP = "https://anthony-bubble-pdf-service.ew.r.appspot.com/api/pdf";
+    private static final String URL_GCP_NICK = "https://kindred-tales-jv3hl7.uc.r.appspot.com/api/pdf";
+    private static final String URL = URL_GCP_NICK;
 
+    private WebTestClient client;
     @BeforeEach
     void setUp() {
         final int memSize = 20 * 1024 * 1024;
 
-        client = WebTestClient.bindToServer().baseUrl("https://bubble-pdf-generator.herokuapp.com/api/pdf")
+        client = WebTestClient.bindToServer().baseUrl(URL)
                 .responseTimeout(Duration.ofMinutes(3L))
                 .exchangeStrategies(ExchangeStrategies.builder()
                         .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(memSize))

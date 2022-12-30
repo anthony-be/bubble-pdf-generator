@@ -38,7 +38,7 @@
 
   "metadata" : {
       "bucketId" : "kindred-pdf-files",
-      "pdfFileId" : "anthony-heroku-test",
+      "pdfFileId" : "anthony-gcp-test",
       "labels" : [ "bubble.io", "kindred-tales", "test", "pdf" ]
   }
 }
