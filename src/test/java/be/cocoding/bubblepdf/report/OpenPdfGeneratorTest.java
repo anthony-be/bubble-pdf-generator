@@ -26,7 +26,7 @@ class OpenPdfGeneratorTest {
 
     @Test
     void generatePdf() throws IOException {
-        File f = new File("/home/anthony/projects/GitHubxxx/sample-pdf-bubble-OpenPDF.pdf");
+        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF.pdf");
         OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
@@ -34,7 +34,7 @@ class OpenPdfGeneratorTest {
         Element q2e2 = request.getQuestions().get(1).getElements().get(1);
         assertTrue(q2e2 instanceof ImageElement);
         ImageElement imagelement = (ImageElement) q2e2;
-        imagelement.setBase64ImageContent(imagePaysage());
+        imagelement.setValue(imagePaysage());
         generator.generatePdf(request, out);
 
         out.flush();out.close();

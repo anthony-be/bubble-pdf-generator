@@ -16,9 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.text.MessageFormat;
-import java.util.Base64;
 
 /**
  * Use OpenPDF library as main pdf generator, to allow dynamic content positioning.
@@ -89,16 +87,7 @@ public class OpenPdfGenerator implements PdfGenerator {
     }
 
     private void printImageElement(Document doc, ImageElement imageElement) throws DocumentException, IOException {
-        String value = imageElement.getValue();
-
-        // 2022-10-27: Value can be either base64 or URL
-        Image image;
-        if(imageElement.isBase64Value()){
-            byte[] bytes = Base64.getDecoder().decode(value);
-            image = Image.getInstance(bytes);
-        } else {
-            image = Image.getInstance(value); // value = URL of the image
-        }
+        Image image = Image.getInstance(imageElement.getImageBytes());
 
         image.setAlignment(Image.MIDDLE);
         fitImageIfNecessary(image);

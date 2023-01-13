@@ -3,10 +3,8 @@ package be.cocoding.bubblepdf.storage.cloud.google;
 import be.cocoding.bubblepdf.storage.ReportStore;
 import be.cocoding.bubblepdf.storage.cloud.google.credentials.ApplicationDefaultCredentialsProviderImpl;
 import be.cocoding.bubblepdf.storage.cloud.google.credentials.CredentialsProvider;
-import com.google.auth.Credentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.HttpStorageOptions;
 import com.google.cloud.storage.Storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +41,10 @@ public class GoogleCloudStore implements ReportStore, InitializingBean {
     }
 
     private Storage getStorageInstance() {
-        Credentials credentials = credentialsProvider.getCredentials();
-        HttpStorageOptions httpStorageOptions = HttpStorageOptions.newBuilder().setCredentials(credentials).build();
-        return httpStorageOptions.getService();
+//        Credentials credentials = credentialsProvider.getCredentials();
+//        HttpStorageOptions httpStorageOptions = HttpStorageOptions.newBuilder().setCredentials(credentials).build();
+//        return httpStorageOptions.getService();
+        return StorageServiceFactory.getStorage(credentialsProvider);
     }
 
     @Override
