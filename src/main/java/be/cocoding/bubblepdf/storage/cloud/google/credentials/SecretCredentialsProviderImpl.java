@@ -50,20 +50,20 @@ public class SecretCredentialsProviderImpl implements CredentialsProvider {
 
     @SneakyThrows(IOException.class)
     public SecretCredentialsProviderImpl(String projectId, String secretName) {
-        this(projectId, secretName, SecretManagerServiceSettings.newBuilder().build());
+        this(projectId, secretName, null);
     }
 
     public SecretCredentialsProviderImpl(String projectId, String secretName, SecretManagerServiceSettings settings) {
         this.projectId = requireNonNull(projectId, "projectId parameter is required");
         this.secretName = requireNonNull(secretName, "secretName parameter is required");
-        this.settings = requireNonNull(settings, "settings parameter is required");
+        this.settings = settings;
     }
 
     @Override
     public Credentials getCredentials() {
         logger.info("Retrieving Credentials from GCP Secret Manager. ProjectID: {} - Secret Name: {}", projectId, secretName);
         Credentials secretCredentials;
-        try(SecretManagerServiceClient client = SecretManagerServiceClient.create(settings)){
+        try(SecretManagerServiceClient client = getServiceClient()){
             SecretVersionName svn = SecretVersionName.of(projectId, secretName, LATEST_VERSION);
             AccessSecretVersionResponse accessSecretVersionResponse = client.accessSecretVersion(svn);
             ByteString data = accessSecretVersionResponse.getPayload().getData();
@@ -74,4 +74,7 @@ public class SecretCredentialsProviderImpl implements CredentialsProvider {
         return secretCredentials;
     }
 
+    private SecretManagerServiceClient getServiceClient() throws IOException {
+        return settings == null ? SecretManagerServiceClient.create() : SecretManagerServiceClient.create(settings);
+    }
 }
