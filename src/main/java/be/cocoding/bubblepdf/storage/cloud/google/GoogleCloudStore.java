@@ -3,6 +3,7 @@ package be.cocoding.bubblepdf.storage.cloud.google;
 import be.cocoding.bubblepdf.storage.ReportStore;
 import be.cocoding.bubblepdf.storage.cloud.google.credentials.ApplicationDefaultCredentialsProviderImpl;
 import be.cocoding.bubblepdf.storage.cloud.google.credentials.CredentialsProvider;
+import com.google.cloud.WriteChannel;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
@@ -12,6 +13,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
+
 import static java.util.Objects.requireNonNull;
 
 @Component
@@ -19,6 +26,7 @@ public class GoogleCloudStore implements ReportStore, InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(GoogleCloudStore.class);
     private static final String GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
+    private static final int DEFAULT_CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
 
     private final CredentialsProvider credentialsProvider;
 
@@ -38,6 +46,38 @@ public class GoogleCloudStore implements ReportStore, InitializingBean {
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(MediaType.APPLICATION_PDF_VALUE).build();
         storage.create(blobInfo, reportContent);
         logger.info("Uploaded report: " + filename);
+    }
+
+    @Override
+    public void store(String bucketName, String filename, File reportFile) {
+        Storage storage = getStorageInstance();
+        BlobId blobId = BlobId.of(bucketName, filename);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(MediaType.APPLICATION_PDF_VALUE).build();
+
+        try {
+            long contentLength = Files.size(reportFile.toPath());
+            logger.info("Storing report file {} under bucket {}. Size of report: {} bytes", filename, bucketName, contentLength);
+            if (contentLength > 1_000_000) {
+                // When content is not available or large (1MB or more) it is recommended
+                // to write it in chunks via the blob's channel writer.
+                try (WriteChannel writer = storage.writer(blobInfo)) {
+                    byte[] buffer = new byte[DEFAULT_CHUNK_SIZE];
+                    try (InputStream input = Files.newInputStream(reportFile.toPath())) {
+                        int limit;
+                        while ((limit = input.read(buffer)) >= 0) {
+                            writer.write(ByteBuffer.wrap(buffer, 0, limit));
+                        }
+                    }
+                }
+            } else {
+                byte[] bytes = Files.readAllBytes(reportFile.toPath());
+                // create the blob in one request.
+                storage.create(blobInfo, bytes);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload report file", e);
+        }
+        logger.info("Uploaded report: " + blobId);
     }
 
     private Storage getStorageInstance() {
