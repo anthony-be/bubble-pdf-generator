@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.client.MockMvcWebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -84,8 +85,7 @@ class PdfControllerTest {
 
     @Test
     void createPdfWithBucketAndPdfFileId() throws IOException {
-        Mockito.doNothing().when(mockReportStore).store(eq("bubble-kindred-tales-test"), eq("gdcerfthb34dr78"), any());
-
+        Mockito.doNothing().when(mockReportStore).store(eq("bubble-kindred-tales-test"), eq("gdcerfthb34dr78"), any(File.class));
         String validJson = sampleJsonWithBucket();
         client.post()
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +93,7 @@ class PdfControllerTest {
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NO_CONTENT);
 
-        verify(mockReportStore).store(eq("bubble-kindred-tales-test"), eq("gdcerfthb34dr78"), any());
+        verify(mockReportStore).store(eq("bubble-kindred-tales-test"), eq("gdcerfthb34dr78"), any(File.class));
     }
 
     @Test

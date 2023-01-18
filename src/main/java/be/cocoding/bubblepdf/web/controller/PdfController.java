@@ -1,31 +1,33 @@
 package be.cocoding.bubblepdf.web.controller;
 
-import be.cocoding.bubblepdf.download.ImagesDownloader;
 import be.cocoding.bubblepdf.download.ImagesDownloaderImpl;
-import be.cocoding.bubblepdf.model.*;
+import be.cocoding.bubblepdf.model.Element;
+import be.cocoding.bubblepdf.model.ImageElement;
+import be.cocoding.bubblepdf.model.Metadata;
+import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.parser.RequestJsonParser;
 import be.cocoding.bubblepdf.report.OpenPdfGenerator;
 import be.cocoding.bubblepdf.storage.ReportStore;
-import be.cocoding.bubblepdf.storage.cloud.google.GoogleCloudStore;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.*;
-import java.util.function.Function;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,42 +43,32 @@ public class PdfController implements InitializingBean {
         this.store = store;
     }
 
-    @PostMapping(path = "/download-images/{strategy}")
-    public ResponseEntity downloadImages(@RequestBody String json, @PathVariable("strategy") String strategy){
-        logger.info("Handling request to download report's images with strategy {} ...", strategy);
-
-        //Parse json
-        logger.info("Parsing JSON payload...");
-        PdfRequestWrapper pdfRequestWrapper = getPdfRequestWrapper(json);
-        if(pdfRequestWrapper == null || !pdfRequestWrapper.hasData()){
-            return ResponseEntity.badRequest().build();
-        }
-
-        // Extract uri from request
-        List<String> uriList = pdfRequestWrapper.getQuestions().stream()
-                .filter(Objects::nonNull)
-                .flatMap(question -> question.getElements().stream())
-                .filter(ImageElement.class::isInstance)
-                .map(Element::getValue)
-                .peek(uri -> System.out.println("Original URI: " + uri))
-//                .map(uri -> {
-//                        String SPACE = " ";
-//                        String urlEncodedSpace = "%20";
-//                    String fixedUri = StringUtils.replace(uri, SPACE, urlEncodedSpace);
-//                    fixedUri += "?authuser=1";
-//                    System.out.println("Space correction uri: " + fixedUri);
-//                    return fixedUri;
-//                })
-
-                .collect(Collectors.toList());
-
-
-        // Download images
-        ImagesDownloader imgDownloader = new ImagesDownloaderImpl(strategy);
-        Map<String, Path> downloadedImagesMap = imgDownloader.download(uriList);
-
-        return ResponseEntity.ok(downloadedImagesMap);
-    }
+//    @PostMapping(path = "/download-images/{strategy}")
+//    public ResponseEntity downloadImages(@RequestBody String json, @PathVariable("strategy") String strategy){
+//        logger.info("Handling request to download report's images with strategy {} ...", strategy);
+//
+//        //Parse json
+//        logger.info("Parsing JSON payload...");
+//        PdfRequestWrapper pdfRequestWrapper = getPdfRequestWrapper(json);
+//        if(pdfRequestWrapper == null || !pdfRequestWrapper.hasData()){
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//        // Extract uri from request
+//        List<String> uriList = pdfRequestWrapper.getQuestions().stream()
+//                .filter(Objects::nonNull)
+//                .flatMap(question -> question.getElements().stream())
+//                .filter(ImageElement.class::isInstance)
+//                .map(Element::getValue)
+//                .collect(Collectors.toList());
+//
+//
+//        // Download images
+//        ImagesDownloader imgDownloader = new ImagesDownloaderImpl(strategy);
+//        Map<String, Path> downloadedImagesMap = imgDownloader.download(uriList);
+//
+//        return ResponseEntity.ok(downloadedImagesMap);
+//    }
 
     @PostMapping
     public ResponseEntity createPdf(@RequestBody String json){
@@ -95,14 +87,14 @@ public class PdfController implements InitializingBean {
 
         //Generate PDF
         logger.info("Generating PDF report...");
-        byte[] pdfContent;
+        File pdfFile;
         try {
-            OpenPdfGenerator pdfGenerator = new OpenPdfGenerator();
-            ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
-
-            pdfGenerator.generatePdf(pdfRequestWrapper, pdfOut);
-            pdfOut.close();
-            pdfContent = pdfOut.toByteArray();
+            pdfFile = Files.createTempFile("GeneratedPdf", ".pdf").toFile();
+            pdfFile.deleteOnExit();
+            try(FileOutputStream pdfOut = new FileOutputStream(pdfFile)){
+                OpenPdfGenerator pdfGenerator = new OpenPdfGenerator();
+                pdfGenerator.generatePdf(pdfRequestWrapper, pdfOut);
+            }
         } catch (IOException e) {
             logger.error("Failed to generate the PDF report", e);
             return ResponseEntity.internalServerError().build();
@@ -110,11 +102,11 @@ public class PdfController implements InitializingBean {
 
         Metadata metadata = pdfRequestWrapper.getMetadata();
         if(metadata!=null && metadata.isCompleteForStorage()){
-            return storePdfAndReturnOkResponse(metadata, pdfContent);
+            return storePdfAndReturnOkResponse(metadata, pdfFile);
         }
 
         // Return content as response payload
-        return pdfAsResponsePayload(pdfContent);
+        return pdfAsResponsePayload(pdfFile);
     }
 
     private void downloadImagesAndFillRequestWrapper(PdfRequestWrapper pdfRequestWrapper) {
@@ -167,16 +159,17 @@ public class PdfController implements InitializingBean {
     }
 
 
-    private ResponseEntity pdfAsResponsePayload(byte[] pdfContent){
+    private ResponseEntity pdfAsResponsePayload(File pdfFile){
         logger.info("Returning PDF as HTTP response payload");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setCacheControl(CacheControl.noStore().mustRevalidate().cachePrivate());
-        return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
+        Resource resource = new FileSystemResource(pdfFile);
+        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
 
-    private ResponseEntity storePdfAndReturnOkResponse(Metadata metadata, byte[] pdfContent){
-        store.store(metadata.getBucketId(), metadata.getPdfFileId(), pdfContent);
+    private ResponseEntity storePdfAndReturnOkResponse(Metadata metadata, File pdfFile){
+        store.store(metadata.getBucketId(), metadata.getPdfFileId(), pdfFile);
         logger.info("PDF report stored, returning http response");
         return ResponseEntity.noContent().build();
     }
