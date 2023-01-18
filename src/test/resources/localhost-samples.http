@@ -105,3 +105,47 @@ POST http://localhost:8080/api/pdf
 Content-Type: application/json
 
 < samples_json/Nick-12_20_2022-no_images.json
+
+#### Generate PDF from Nick example with image from AWS S3
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+< samples_json/Nick-GCP_12_30_2022-images-s3.json
+
+#### Generate PDF from Nick example with image from GCP
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+< samples_json/Nick-GCP_12_30_2022-images-google-cloud.json
+
+#### Generate PDF from Nick example with image from local filesystem
+POST http://localhost:8080/api/pdf
+Content-Type: application/json
+
+< samples_json/Nick-GCP_12_30_2022-images-local.json
+
+################## Download FULL Bucket items
+GET http://localhost:8080/api/pdf/bucket?bucketId=kindred-tales-jv3hl7&keyPrefix=1670130473277x957049496090705900
+
+#################
+################# Download images from payload using different strategy
+#################
+## Top:   URL Stream Channel, HTTP Connection
+## Bof: Http client, Http client 5
+
+#### Download images with different strategy
+#POST http://localhost:8080/api/pdf/download-images/URL_STREAM
+POST http://localhost:8080/api/pdf/download-images/URL_STREAM_CHANNEL
+#POST http://localhost:8080/api/pdf/download-images/URL_HTTP_CONNECTION
+#POST http://localhost:8080/api/pdf/download-images/HTTP_CLIENT
+#POST http://localhost:8080/api/pdf/download-images/HTTP_CLIENT_5
+#POST http://localhost:8080/api/pdf/download-images/COMMONS_IO
+Content-Type: application/json
+
+#< sample-request-empty.json
+#< samples_json/Nick-12_20_2022-no_images.json
+#< samples_json/Nick-GCP_12_30_2022-images-s3.json
+< samples_json/Nick-GCP_12_30_2022-images-google-cloud.json
+#< samples_json/Nick-2023-01-01-JSON-GSURLs.json
+#< samples_json/Nick-GCP_12_30_2022-images-local.json
+

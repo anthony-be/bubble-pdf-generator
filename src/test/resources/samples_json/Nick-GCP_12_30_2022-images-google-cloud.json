@@ -1,24 +1,36 @@
 {
   "questions": [
     {
-      "title": "What is your greatest regret -Ryan?",
+      "title": "What is your greatest regret -Ryan -no title?",
       "elements": [
-        {
-          "type": "image",
-          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/AvatarMaker%20%281%29.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20221228%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221228T213104Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=2ed3cb296a37bf693ac54f08e034bbfb7f9dda05762e43417922d247efdae633e36daeb3d97c19388b80e7904e4c5e1740aa672c03f39b35cdcc4743ba3a6c70d2f248d03163519eadbf5902ba90c264a24cdb01656185d306bfecdda7cf551cf682eab428376e9c1616da99230206eff4708405f9ac8935ebb25d1741eb155ff98c0cf2bb6437a916de77e689140cdbed090a0413b03ea7899443bcae1ff2cb37c0ecf6e2e4c2212f32ff11590ef803deba479eed0dcaf926d3881b78e61092db31de54e0284506a7f978d9cec930792113b949aecbdd764e7a7991a78637f444ddcba9abec9dc8e8f7e448da70b84e3b17ea857845381aeffb31b050b6d9ef"
-        },
         {
           "type": "text",
           "value": "lorem ipsum peanut butter jelly"
+        },
+        {
+          "type": "image",
+          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/AvatarMaker%281%29.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20230108%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230108T154726Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=4fba82c125edd36a313b2800edb04ae7c2f77adc73aee9ab26ed86e308cf6f87385ac0354ca512a418a5eba67cc06757f24bcff6daf54a99225fdd5bcc52e005d8418db021f8c510d2fa8430e4274d9a11f544ac2965b663e11ac9e25ebadfa0556c43870b63b3619240fe181a0c240e864b86d485d68740a7a33dcc5b1814d0e9732e14aeefe99d7b0885f74068aa97e824137f5e9b275fc3869ebfedbf8758f2d9ed3e299d5915709858eac3ef4af06e132d09aa4b166ac7432f028b5cc8dd6eb093780d6faf154df0f13d220b58ff0b3d2d34513513543026fb14edbf0c67803f8fe4a828432471dd6c0dcb13ade2bb577ee88388973b3de4eddf0c7811e5"
+        },
+        {
+          "type": "text",
+          "value": "What is your greatest regret? find me"
+        },
+        {
+          "type": "text",
+          "value": "[quote]This is a test for a sample quote block, will it carryover to the PDF server?[/quote]"
         }
       ]
     },
     {
-      "title": "Who is the funniest person in your family? ",
+      "title": "Who is the funniest person in your family -R? ",
       "elements": [
         {
           "type": "text",
-          "value": "Who is the funniest person in your family? "
+          "value": "Who is the funniest person in your family -R? "
+        },
+        {
+          "type": "image",
+          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg2-2.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20230108%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230108T154808Z&X-Goog-Expires=600001&X-Goog-SignedHeaders=host&X-Goog-Signature=11fbc84706a7d5e9515a65307e2d32424e88019c3c1b73b798704cbe00e1509f960cbe89e633a4b701ada2b79e14e78f18eacefa4d69fe18630505daaaea95dda8c16ebf570ba3b25655586233f0e41abf90fc81e08a4ecc957e5b53cae1a7ffd1eb5374d2a70fc47a2909165392bde2e3f893cee541ed68e2cc2c2a7e0e3c6e149e572953982240c306730a28ca67e7028838534d1517b3123f4f8ac625f30e338439a5031d8700d318faefb3f2c43b61a020162f9f1efa3b0b7ce8b3dd602b6594a1162b90a86533e1382c3713ac1deaadab9259fefd722d8646bb530b9030737eea4e230962dd37797b859a16a8e86e5c1113d3fd5b709389c5e8d5df808b"
         },
         {
           "type": "text",
@@ -26,7 +38,7 @@
         },
         {
           "type": "image",
-          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg6.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20221228%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221228T213046Z&X-Goog-Expires=600001&X-Goog-SignedHeaders=host&X-Goog-Signature=828f07fb349dfd0aef043340041074b00d74495444f51aa47216cc1cb5699e9ea76200059ce61fb009667cdf1b9f89e2f3f9120a3514067181fb26a2c527c68070846cdd1193327e72795747a09ffca3261c06061e033822d687fba01f48951e074db60cf5a895fea9d2b1f0f3f2060b5ad5859f6c8f0577411c4421bb544b04ad25b76fcfba830c2f3702ec7fe28f1d27a3834fd0fd6ddf7c5a3210e1b5b72765b98f2e0792e57fe9143556ae45268a4b314b5d502ee159d0e6c2efdf1eedfde3cd1416de7eda8d75476e1a81cb042e93089d41940f1db4027b2c063c1b0bf01910d1a73187171dcd28cb650aa82113150ed07781d82b7e865a12de03ec4160"
+          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/card.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20230108%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230108T154839Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=401abec120f81c8df2982f20282d1d168ec58ebf5c2eab181e447bec761722b1d279f14e393dc0e8b9a673a16b89f32624acbec8dade94ebf167dd685c2326bfae4544f4819160af6ad79360c7080ef16683ad2b39856d6ab569c6755a9be04f1e25df9c0f2ee52b294a2f91c171875b91aaf3f6bba32b59d61d4cff3383b44c0dfd10fa9e9ff13f9d2a1a9adcb84c86f1c89cdf4357e4cd59b399202fab56a6b0ff6626b5de61da30290c5ca065677578c7aa6113f95370d0793c550a4394b2e04e399783cd2af5630b798860ceb180a90e3f38c3b6892314a0abd1b419e96ffc3d661efa7071f2384eb7f52166b07b8baef6de6024c3af458b7c96d95bcc21"
         },
         {
           "type": "text",
@@ -34,11 +46,7 @@
         },
         {
           "type": "image",
-          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg16.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20221228%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221228T213047Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=46c349f6dbd1af28989192e8fab65b7403ed44376cb1f4087a6b8716f6735d9807dd9c4e1a93dd1e9c2550a1d8f1835585b1edb14e0397cacc340d61e3126a8be0b4791b7df02ba88e10d3a7117c09704241ca2fecbb3cd71c8a363f608380235e1a12a61f76136eb2f21c08e4b912d134496186aa4f6426acabe84bb83f1775387862c36722ff21c2506aa68ac0145cc3aa00e5616470036ef4fa99dcbc8e1efc5ec13a7de6bc3005c6db2011b019f45dadc5b2292c7bbcfaa00464d329b0c259c3cfd53731b8bf60a436af2adc945d9593aded9e4f6bb501ad6c5ef2246736f585cb4236842befb19e23a46d32bd6cd4f5c9084d7794aa7ced1587f4128672"
-        },
-        {
-          "type": "image",
-          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg22.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20221228%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221228T213048Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=438c04fa48ae2a78a0e1e5d03b5869589e99e96e4d3aac3cc868d6221b64259005944803789c341e7b6fdedb056c9af5027d9e048df76a1e0dccf131aabe0cd4b872336dd0cb6e7db072ade225122a4253a85399edff137f5efd7752bbc1c2dced1fd12acb4023075288041d9b7255c37d09feea63aee9388b4c911e8a9c4710860d3517919d56dcc6b9d36dcbfbb0a1bfcba3783ed00cee2696c1d4247003b67fc6fd94cf00bbfef2b38da0a7912f794df204e35b02829356c49854eafd71ca78d69c64b03175591fb74e4c8ca73b4eb4a2eb96154a00592aac7a15f11d9e1748f9b7329008c0d928850b5654de96b8fb62f55561aaf925686dcd16c5647ff8"
+          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/lamp.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20230108%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230108T154826Z&X-Goog-Expires=600001&X-Goog-SignedHeaders=host&X-Goog-Signature=28f753231d2e0857065d5f9ffc0da7ee17f96ab02f83d08c4471bfee4c5bf2bc5626e118ea7aefde3d19f0a6619f4bed56c84de3e6f16fbbfffaca2bd304b04b15534813c010c78b8a40e324dab77df0682ce99f187134956d44cfd7359dce34de3332ee1ddf78e33fc5ea97186a7f858ecab73a212200d097c485a8fdbe2ddac38dfe3955ed0b8cca60f1d3eb0285c5581671b5a4a802ae7ddc66f95fd52f25a60e7651378027e45142ae67234d413cd5adcbb3759902616964f3bf7c33e0830360496c85e1287631e17df1c24982961b638c2243e3a5415a006327c845155c4dd7339698862f687705b5a2f5ae527d87906b81d3cb4694785966372a7d5e7f"
         }
       ]
     },
@@ -50,18 +58,18 @@
           "value": "What was your first impression of your husband/wife/partner?"
         },
         {
-          "type": "text",
-          "value": "us urna. Ante metus dictum at tempor commodo ullamcorper a lacus vestibulum. Dolor purus non enim praesent elementum. Turpis in eu mi bibendum neque egestas congue quisque. Nisi lacus sed viverra tellus in hac. Porttitor eget dolor morbi non arcu risus. Posuere morbi leo urna molestie at elementum. Pretium lectus quam id leo in vitae turpis. Massa tempor nec feugiat nisl pretium fusce. Tellus molestie nunc non blandit massa enim nec.\n\nRisus "
+          "type": "image",
+          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg11.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20230108%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230108T060003Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=4ad2e24b71e767b0b4c81da19e514f633e761c8aec3087c8f3192b0ccd6b9eb7f66e2f20a1e459d8735ed926d8a36f180c37c12ffb73f1021ceedbdc1b6f75441748b1e7fe4550c7a410177ca83a6cbde3f7900a1bb8181933e2eb246d18bbfbe70781593cadc8b650a7b1b484951b591ac4507fec7420d429ffc9f416d9d9d8b8484b3ba9d6104cf73ad00bd8cb82f712c680fa65ef3ef5eb854fe2157fc1a8007e3be869dc17e20227391fa42462bd6bdbc56321cdd3d1834461c0d3622ac81eaab8e7868b7296e9363cda6326cc5803b5dabffc68c27b789525f1876f95ac6583e93e777c8a9af8f8dd13b6643311b063db92ebb93fe99588315047e3d2a8"
         },
         {
-          "type": "image",
-          "value": "https://storage.googleapis.com/kindred-tales-jv3hl7/1670130473277x957049496090705900/bg19.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=signing-bubble%40kindred-tales-jv3hl7.iam.gserviceaccount.com%2F20221228%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20221228T213054Z&X-Goog-Expires=600000&X-Goog-SignedHeaders=host&X-Goog-Signature=94b212c6689f80cb14225b68252242757f637251a831fa87a6ccc7131fb3929d82225425e1d6bcb9641012157686a2f1987a15e9ea4fdf658d68fabd1a56de83fee9a6044d49f506b828e7378dd7ef101487661a98272e78852511752235eb4843e475d89f224d8ce307a5ee9d652ecd3ffb20a39d8985559b10cf5142c8a64ea1b91165e86a2ebe603279dc8167f515d01b865906da00610574ee358416609b07ab07dad1958da51baa6d5ea23b7721eceddc728c5b88ee9646b6c935773edd9d2e037f0ce3a9e36dea86953b8f1062bf49aee8f530546e89144b25f23c5a0492cfc0fa679898f730afa21964b0996df589dd60d472c3eab3593f8f9e6a66c9"
+          "type": "text",
+          "value": "us urna. Ante metus dictum at tempor commodo ullamcorper a lacus vestibulum. Dolor purus non enim praesent elementum. Turpis in eu mi bibendum neque egestas congue quisque. Nisi lacus sed viverra tellus in hac. Porttitor eget dolor morbi non arcu risus. Posuere morbi leo urna molestie at elementum. Pretium lectus quam id leo in vitae turpis. Massa tempor nec feugiat nisl pretium fusce. Tellus molestie nunc non blandit massa enim nec.\n\nRisus "
         }
       ]
     }
   ],
   "metadata": {
     "bucketId": "kindred-pdf-files",
-    "pdfFileId": "1670130473277x957049496090705900_interiorqgbSA.pdf"
+    "pdfFileId": "1670130473277x957049496090705900_interior6RlmX.pdf"
   }
 }
