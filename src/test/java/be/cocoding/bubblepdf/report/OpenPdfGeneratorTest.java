@@ -4,8 +4,10 @@ import be.cocoding.bubblepdf.model.Element;
 import be.cocoding.bubblepdf.model.ImageElement;
 import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.parser.RequestJsonParser;
+import be.cocoding.test.utils.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Disabled;
+import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -17,16 +19,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Base64;
 
-import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithOnlineProfileImage;
-import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithProfileImage;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static be.cocoding.bubblepdf.model.PdfRequestWrappers.sampleModelWithLocalFileProfileImage;
+import static be.cocoding.bubblepdf.model.PdfRequestWrappers.sampleModelWithProfileImage;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled
+//@Disabled
 class OpenPdfGeneratorTest {
 
     @Test
     void generatePdf() throws IOException {
-        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF.pdf");
+        File f = FileUtils.createTempFileWithDeleteOnExist("sample-pdf-bubble-OpenPDF",".pdf");
         OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
@@ -34,45 +36,50 @@ class OpenPdfGeneratorTest {
         Element q2e2 = request.getQuestions().get(1).getElements().get(1);
         assertTrue(q2e2 instanceof ImageElement);
         ImageElement imagelement = (ImageElement) q2e2;
-        imagelement.setValue(imagePaysage());
+        imagelement.setValue(imagePaysageBase64());
         generator.generatePdf(request, out);
 
         out.flush();out.close();
     }
 
     @Test
-    void generatePdf2() throws IOException {
-        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF-2.pdf");
-        OutputStream out = Files.newOutputStream(f.toPath());
+    void generatePdfWithImagesNotDownloaded() throws IOException {
+        OutputStream out = NullOutputStream.NULL_OUTPUT_STREAM;
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
         PdfRequestWrapper request = sampleModel2();
-        generator.generatePdf(request, out);
+        try {
+            generator.generatePdf(request, out);
+            fail("An exception should be thrown");
+        } catch (Exception e) {
+            assertEquals("Failed to create Document report", e.getMessage());
+            Throwable rootCause = ExceptionUtils.getRootCause(e);
+            assertEquals("ImageElement is not a base64 representation and has not been previously downloaded", rootCause.getMessage());
+        }
 
-        out.flush();out.close();
     }
 
     @Test
-    void generatePdfWithImageUrl() throws IOException {
-        File f = new File("/home/anthony/projects/GitHub/sample-pdf-bubble-OpenPDF-URL-Image.pdf");
+    void generatePdfWithImageLocalFile() throws IOException {
+        File f = FileUtils.createTempFileWithDeleteOnExist("sample-pdf-bubble-OpenPDF-URL-Image",".pdf");
         OutputStream out = Files.newOutputStream(f.toPath());
 
         OpenPdfGenerator generator = new OpenPdfGenerator();
-        PdfRequestWrapper request = sampleModelWithOnlineProfileImage();
+        PdfRequestWrapper request = sampleModelWithLocalFileProfileImage();
         generator.generatePdf(request, out);
 
         out.flush();out.close();
     }
 
-    private String imagePaysage() throws IOException {
+    private String imagePaysageBase64() throws IOException {
         Resource resource = new DefaultResourceLoader().getResource("classpath:/images/pngtree-summer-landscape-png-image_3911110.jpg");
         byte[] bytes = IOUtils.toByteArray(resource.getInputStream());
         return Base64.getEncoder().encodeToString(bytes);
     }
 
     private PdfRequestWrapper sampleModel2() throws IOException {
-            Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request-with-images.json");
-            String json = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
-            return RequestJsonParser.parseJson(json);
+        Resource resource = new DefaultResourceLoader().getResource("classpath:/sample-request-with-images.json");
+        String json = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+        return RequestJsonParser.parseJson(json);
     }
 }

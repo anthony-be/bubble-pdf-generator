@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static be.cocoding.bubblepdf.model.PdfRequestWrapper.sampleModelWithMetadata;
+import static be.cocoding.bubblepdf.model.PdfRequestWrappers.sampleModelWithMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RequestJsonParserTest {
