@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.MessageFormat;
 import java.util.Optional;
 
 /**
@@ -99,11 +98,11 @@ public class OpenPdfGenerator implements PdfGenerator {
         fitImageIfNecessary(image);
         doc.add(image);
 
-        Phrase imageLegendPhrase = new Phrase(MessageFormat.format("Image size - Original: {0} x {2} - Corrected: {1} x {3}",
-                image.getWidth(), image.getPlainWidth(), image.getHeight(), image.getPlainHeight()), imageLegendFont);
-        Paragraph p = new Paragraph(imageLegendPhrase);
-        p.setAlignment(Element.ALIGN_CENTER);
-        doc.add(p);
+//        Phrase imageLegendPhrase = new Phrase(MessageFormat.format("Image size - Original: {0} x {2} - Corrected: {1} x {3}",
+//                image.getWidth(), image.getPlainWidth(), image.getHeight(), image.getPlainHeight()), imageLegendFont);
+//        Paragraph p = new Paragraph(imageLegendPhrase);
+//        p.setAlignment(Element.ALIGN_CENTER);
+//        doc.add(p);
 
     }
 
