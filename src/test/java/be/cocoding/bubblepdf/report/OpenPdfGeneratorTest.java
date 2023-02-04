@@ -2,6 +2,7 @@ package be.cocoding.bubblepdf.report;
 
 import be.cocoding.bubblepdf.model.Element;
 import be.cocoding.bubblepdf.model.ImageElement;
+import be.cocoding.bubblepdf.model.Metadata;
 import be.cocoding.bubblepdf.model.PdfRequestWrapper;
 import be.cocoding.bubblepdf.parser.RequestJsonParser;
 import be.cocoding.test.utils.FileUtils;
@@ -37,6 +38,46 @@ class OpenPdfGeneratorTest {
         assertTrue(q2e2 instanceof ImageElement);
         ImageElement imagelement = (ImageElement) q2e2;
         imagelement.setValue(imagePaysageBase64());
+        generator.generatePdf(request, out);
+
+        out.flush();out.close();
+    }
+
+    @Test
+    void generatePdfWithoutWatermark() throws IOException {
+        File f = FileUtils.createTempFileWithDeleteOnExist("sample-pdf-bubble-OpenPDF-Without-Watermark",".pdf");
+        OutputStream out = Files.newOutputStream(f.toPath());
+
+        OpenPdfGenerator generator = new OpenPdfGenerator();
+        PdfRequestWrapper request = sampleModelWithProfileImage();
+        Metadata metadata = Metadata.builder().watermark(null).build();
+        request.setMetadata(metadata);
+
+        Element q2e2 = request.getQuestions().get(1).getElements().get(1);
+        assertTrue(q2e2 instanceof ImageElement);
+        ImageElement imagelement = (ImageElement) q2e2;
+        imagelement.setValue(imagePaysageBase64());
+
+        generator.generatePdf(request, out);
+
+        out.flush();out.close();
+    }
+
+    @Test
+    void generatePdfWithWatermark() throws IOException {
+        File f = FileUtils.createTempFileWithDeleteOnExist("sample-pdf-bubble-OpenPDF-With-Watermark",".pdf");
+        OutputStream out = Files.newOutputStream(f.toPath());
+
+        OpenPdfGenerator generator = new OpenPdfGenerator();
+        PdfRequestWrapper request = sampleModelWithProfileImage();
+        Metadata metadata = Metadata.builder().watermark("Test Watermark").build();
+        request.setMetadata(metadata);
+
+        Element q2e2 = request.getQuestions().get(1).getElements().get(1);
+        assertTrue(q2e2 instanceof ImageElement);
+        ImageElement imagelement = (ImageElement) q2e2;
+        imagelement.setValue(imagePaysageBase64());
+
         generator.generatePdf(request, out);
 
         out.flush();out.close();

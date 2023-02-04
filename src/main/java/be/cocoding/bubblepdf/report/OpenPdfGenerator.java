@@ -1,9 +1,7 @@
 package be.cocoding.bubblepdf.report;
 
-import be.cocoding.bubblepdf.model.ImageElement;
-import be.cocoding.bubblepdf.model.PdfRequestWrapper;
-import be.cocoding.bubblepdf.model.Question;
-import be.cocoding.bubblepdf.model.TextElement;
+import be.cocoding.bubblepdf.model.*;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.*;
@@ -17,6 +15,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.MessageFormat;
+import java.util.Optional;
 
 /**
  * Use OpenPDF library as main pdf generator, to allow dynamic content positioning.
@@ -43,7 +42,7 @@ public class OpenPdfGenerator implements PdfGenerator {
         try {
             PdfWriter pdfWriter = PdfWriter.getInstance(doc, out);
             pdfWriter.setStrictImageSequence(true); // ??
-            pdfWriter.setPageEvent(new WatermarkPageEvent());
+            addWatermarkIfNeeded(pdfWriter, request);
             doc.open();
 
             if (!CollectionUtils.isEmpty(request.getQuestions())) {
@@ -57,6 +56,13 @@ public class OpenPdfGenerator implements PdfGenerator {
         } finally {
             doc.close();
         }
+    }
+
+    private void addWatermarkIfNeeded(PdfWriter pdfWriter, PdfRequestWrapper request){
+        Optional.of(request)
+                .map(PdfRequestWrapper::getMetadata)
+                .map(Metadata::getWatermark)
+                .ifPresent(watermark -> pdfWriter.setPageEvent(new WatermarkPageEvent(watermark)));
     }
 
     private void handleException(Exception e) {
@@ -125,15 +131,19 @@ public class OpenPdfGenerator implements PdfGenerator {
         doc.add(paragraph);
     }
 
-
     public static class WatermarkPageEvent extends PdfPageEventHelper {
 
-        Font FONT = new Font(Font.HELVETICA, 52, Font.BOLD, new GrayColor(0.85f));
+        private final String watermark;
+        private final Font FONT = new Font(Font.HELVETICA, 52, Font.BOLD, new GrayColor(0.85f));
+
+        public WatermarkPageEvent(String watermark) {
+            this.watermark = watermark;
+        }
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
             ColumnText.showTextAligned(writer.getDirectContentUnder(),
-                    Element.ALIGN_CENTER, new Phrase("This is Watermark", FONT),
+                    Element.ALIGN_CENTER, new Phrase(watermark, FONT),
                     297.5f, 421, writer.getPageNumber() % 2 == 1 ? 45 : -45);
         }
     }

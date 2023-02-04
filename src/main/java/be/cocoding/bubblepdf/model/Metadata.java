@@ -18,6 +18,8 @@ public class Metadata {
 
     private List<String> labels;
 
+    private String watermark;
+
     public boolean isCompleteForStorage(){
         return StringUtils.isNotBlank(bucketId)
                 && StringUtils.isNotBlank(pdfFileId);
