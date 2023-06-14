@@ -3,6 +3,7 @@ package be.cocoding.bubblepdf.report;
 import be.cocoding.bubblepdf.model.*;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
+
 import com.lowagie.text.Image;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.ColumnText;
